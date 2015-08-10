@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="load json playground">
+    <meta name="author" content="Karol Zyskowski">
+    <title>loadJson</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+  </head>
+
+  <body>
+
+    <script>
+
+      // CREDIT: http://codepen.io/KryptoniteDove/blog/load-json-file-locally-using-pure-javascript
+      function loadJSON(callback) {
+
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', 'json/map.json', true);
+        xobj.onreadystatechange = function () {
+
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+        };
+
+        xobj.send(null);
+      }
+
+      function init() {
+        loadJSON(function(response) {
+        // Parse JSON string into object
+        var data = JSON.parse(response);
+        console.log(data);
+        });
+      }
+
+     window.onload = init;
+
+    </script>
+  </body>
+</html>
